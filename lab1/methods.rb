@@ -19,3 +19,15 @@ for divider in 2..number do
 end
 print "Сумма простых делителей введённого числа равна #{sum}"
 
+# Найти количество нечетных цифр числа, больших 3.
+
+print "Введите число: "
+number = gets.to_i.abs
+count = 0
+while (number > 0)
+  if number % 10 > 3 and number % 10 % 2 != 0 then
+    count += 1
+  end
+  number /= 10
+end
+print "Количество нечетных цифр числа, больших 3: #{count}"
