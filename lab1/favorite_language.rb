@@ -11,3 +11,10 @@ when "python"
 else
 	puts "Не знаю такой. Зато знаю ruby"
 end
+
+print "Введите команду языка ruby: "
+ruby_instruction = STDIN.gets
+puts eval(ruby_instruction)
+print "Введите команду ОС: "
+os_instruction = STDIN.gets
+puts `#{os_instruction}`
