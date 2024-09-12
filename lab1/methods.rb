@@ -31,3 +31,26 @@ while (number > 0)
   number /= 10
 end
 print "Количество нечетных цифр числа, больших 3: #{count}"
+
+# Найти произведение таких делителей числа, сумма цифр которых меньше, чем сумма цифр исходного числа.
+
+def sum_of_digits(current_number)
+  sum = 0
+  while (current_number > 0)
+    sum += current_number % 10
+    current_number /= 10
+  end
+  return sum
+end
+
+print "Введите число: "
+number = gets.to_i.abs
+sum_number = sum_of_digits(number)
+multiplication_divider = 1
+for divider in 2..number do
+  if number % divider == 0 and sum_of_digits(divider) < sum_number then
+    multiplication_divider *= divider
+  end
+end
+print "Произведение делителей числа, сумма цифр 
+которых меньше, чем сумма цифр исходного числа равно #{multiplication_divider}"
