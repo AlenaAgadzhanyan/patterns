@@ -26,7 +26,3 @@ def index_first_positive_element(array)
   end
   return nil
 end
-
-array = [nil]
-puts "#{minimum(array)}"
-puts "#{index_first_positive_element(array)}"
