@@ -78,8 +78,12 @@ class Student
     @git = git_value
   end
 
+<<<<<<< HEAD
   def information()
     puts "id: #{@id}, surname: #{@surname}, firstname: #{@firstname}, lastname: #{@lastname}, phone_number: #{@phone_number}, telegram: #{@telegram}, email: #{@email}, git: #{@git}"
   end
 
 end
+=======
+end
+>>>>>>> 877a5281295956d0af121a8cc79c503906de8099
