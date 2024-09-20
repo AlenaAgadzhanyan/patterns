@@ -1,4 +1,4 @@
-class Student()
+class Student
 
   # Конструктор
   def Initialize(id = nil, surname, firstname, lastname, phone_number = nil, telegram = nil, email = nil, git = nil)
