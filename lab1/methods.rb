@@ -13,7 +13,7 @@ print "Введите число: "
 number = gets.to_i.abs
 sum = 0
 for divider in 2..number do
-	if number % divider  ==0 and simple_divider(divider)  == true then
+	if number % divider  ==0 && simple_divider(divider)  == true then
 		sum += divider
 	end
 end
@@ -25,7 +25,7 @@ print "Введите число: "
 number = gets.to_i.abs
 count = 0
 while (number > 0)
-  if number % 10 > 3 and number % 10 % 2 != 0 then
+  if number % 10 > 3 && number % 10 % 2 != 0 then
     count += 1
   end
   number /= 10
@@ -48,7 +48,7 @@ number = gets.to_i.abs
 sum_number = sum_of_digits(number)
 multiplication_divider = 1
 for divider in 2..number do
-  if number % divider == 0 and sum_of_digits(divider) < sum_number then
+  if number % divider == 0 && sum_of_digits(divider) < sum_number then
     multiplication_divider *= divider
   end
 end
