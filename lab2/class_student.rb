@@ -78,4 +78,8 @@ class Student
     @git = git_value
   end
 
+  def information()
+    puts "id: #{@id}, surname: #{@surname}, firstname: #{@firstname}, lastname: #{@lastname}, phone_number: #{@phone_number}, telegram: #{@telegram}, email: #{@email}, git: #{@git}"
+  end
+  
 end
