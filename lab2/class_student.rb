@@ -1,7 +1,7 @@
-class Student()
+class Student
 
   # Конструктор
-  def Initialize(id = nil, surname, firstname, lastname, phone_number = nil, telegram = nil, email = nil, git = nil)
+  def initialize(surname, firstname, lastname, id = nil, phone_number = nil, telegram = nil, email = nil, git = nil)
     @id = id
     @surname = surname
     @firstname = firstname
@@ -76,6 +76,10 @@ class Student()
 
   def git=(git_value)
     @git = git_value
+  end
+
+  def information()
+    puts "id: #{@id}, surname: #{@surname}, firstname: #{@firstname}, lastname: #{@lastname}, phone_number: #{@phone_number}, telegram: #{@telegram}, email: #{@email}, git: #{@git}"
   end
 
 end
