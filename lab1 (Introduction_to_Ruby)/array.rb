@@ -4,7 +4,7 @@
 def minimum(array)
   if array.count{|item| !item.nil?} != 0 then
     min = array[0]
-  else return "The array doesn't contain not-zero elements"
+  else return nil
   end
   for index in 1...array.length do
     if array[index] != nil && array[index] < min then
@@ -17,7 +17,7 @@ end
 
 def index_first_positive_element(array)
   if array.count{|item| !item.nil?} == 0 then
-    return "The array doesn't contain not-zero elements"
+    return nil
   end
   for index in 0...array.length do
     if array[index] != nil && array[index] > 0 then
