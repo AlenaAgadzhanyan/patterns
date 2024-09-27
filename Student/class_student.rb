@@ -84,7 +84,7 @@ class Student
     puts "Git: #{@git}" if @git
   end
 
-  def get_contact
+  def get_contact()
     if @phone_number then
       "phone_number: #{@phone_number}"
     elsif @telegram then
@@ -94,7 +94,7 @@ class Student
     end
   end
 
-  def get_name
+  def get_name()
     "ФИО: #{self.surname} #{self.firstname[0]}.#{self.lastname[0]}."
   end
 
