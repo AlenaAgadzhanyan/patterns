@@ -2,13 +2,13 @@ class Student
   attr_accessor :id
   attr_reader :phone_number, :telegram, :email, :git, :surname, :firstname, :lastname
 
-  def initialize(parameters)
-    @id = parameters[:id]
-    self.surname = parameters[:surname]
-    self.firstname = parameters[:firstname] 
-    self.lastname = parameters[:lastname]
-    set_contacts(parameters)
-    self.git = parameters[:git]
+  def initialize(surname:, firstname:, lastname:, id:, phone_number: nil, telegram: nil, email: nil, git: nil)
+    @id = id
+    self.surname = surname
+    self.firstname = firstname
+    self.lastname = lastname
+    set_contacts(phone_number: phone_number, telegram: telegram, email: email)
+    self.git = git
   end
 
   def self.phone_number_regex?(phone_number_value)
@@ -63,28 +63,20 @@ class Student
   end
 
   def validate?
-    return Student.git_regex(@git) && (Student.email_regex(@email) || Student.phone_number_regex(@phone_number) || Student.telegram_regex(@telegram))
+    return @git && (@email || @phone_number || @telegram)
   end
 
-  def set_contacts(parameters = {})
-    @phone_number = parameters[:phone_number] if Student.phone_number_regex?(parameters[:phone_number])
-    @email = parameters[:email] if Student.email_regex?(parameters[:email])
-    @telegram = parameters[:telegram] if Student.telegram_regex?(parameters[:telegram])
+  def set_contacts(phone_number: nil, telegram: nil, email: nil)
+    @phone_number = phone_number if Student.phone_number_regex?(phone_number)
+    @email = email if Student.email_regex?(email)
+    @telegram = telegram if Student.telegram_regex?(telegram)
   end
 
   def to_s()
-    puts
-    puts "ID: #{@id}"
-    puts "Surname: #{@surname}"
-    puts "Firstname: #{@firstname}"
-    puts "Lastname: #{@lastname}"
-    puts "Phone_number: #{@phone_number}" if @phone_number
-    puts "Telegram: #{@telegram}" if @telegram
-    puts "Email: #{@email}" if @email
-    puts "Git: #{@git}" if @git
+    puts "\nID: #{@id} \nSurname: #{@surname} \nFirstname: #{@firstname} \nLastname: #{@lastname} #{"\nPhone_number: #{@phone_number}" if @phone_number} #{"\nTelegram: #{@telegram}" if @telegram} #{"\nEmail: #{@email}" if @email} #{"\nGit: #{@git}" if @git}"
   end
 
-  def get_contact
+  def get_contact()
     if @phone_number then
       "phone_number: #{@phone_number}"
     elsif @telegram then
@@ -94,12 +86,55 @@ class Student
     end
   end
 
-  def get_name
+  def get_name()
     "ФИО: #{self.surname} #{self.firstname[0]}.#{self.lastname[0]}."
   end
 
   def getInfo()
-    "#{get_name}, git: #{self.git}, #{get_contact}"
+    "\n#{get_name}, git: #{self.git}, #{get_contact}"
   end
 
+end
+
+class Student_short
+  attr_reader :id, :data, :student
+
+  def initialize(id:, data: nil, student: nil)
+    if (student)
+      @id = student.id
+      @fio = student.surname + student.firstname[0] + "." + student.lastname[0] + "."
+      @git = student.git
+      @contact = student.phone_number || student.telegram || student.email 
+    else
+      @id = id
+      from_string(data)
+    end
+  end
+
+  def from_string(data)
+    fio = ""
+    git = ""
+    contact = ""
+
+    data.split(",").map do |field|
+
+      pair = field.split(":")
+      
+      if pair.length != 2
+        raise "Invalid data format"
+      end
+      
+      case pair[0].strip
+      when "fio", "ФИО"
+        fio = pair[1].strip
+      when "git"
+        git = pair[1].strip
+      when "contact", "phone_number", "telegram", "email"
+        contact = pair[1].strip
+      else
+        raise "Invalid data format"
+      end
+    end
+  end
+  
 end
