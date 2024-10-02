@@ -100,13 +100,12 @@ class Student_short
   attr_reader :id, :data, :student
 
   def initialize(id:, data: nil, student: nil)
+    @id = id
     if (student)
-      @id = student.id
       @fio = student.surname + student.firstname[0] + "." + student.lastname[0] + "."
       @git = student.git
       @contact = student.phone_number || student.telegram || student.email 
     else
-      @id = id
       from_string(data)
     end
   end
