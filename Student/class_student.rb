@@ -1,14 +1,7 @@
-class Student
-  attr_accessor :id
-  attr_reader :phone_number, :telegram, :email, :git, :surname, :firstname, :lastname
+class Person
 
-  def initialize(surname:, firstname:, lastname:, id:, phone_number: nil, telegram: nil, email: nil, git: nil)
+  def initialize(id)
     @id = id
-    self.surname = surname
-    self.firstname = firstname
-    self.lastname = lastname
-    set_contacts(phone_number: phone_number, telegram: telegram, email: email)
-    self.git = git
   end
 
   def self.phone_number_regex?(phone_number_value)
@@ -17,6 +10,32 @@ class Student
 
   def self.surname_firstname_lastname_regex?(surname_firstname_lastname_value)
     surname_firstname_lastname_value.match?(/^[А-ЯЁа-яё]+$/)
+  end
+
+  def self.telegram_regex?(telegram_value)
+    telegram_value.nil? || telegram_value.match?(/\A@[a-zA-Z0-9_]{5,32}\z/)
+  end
+
+  def self.email_regex?(email_value)
+    email_value.nil? || email_value.match?(/\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/)
+  end
+
+  def self.git_regex?(git_value)
+    git_value.nil? || git_value.match?(/\A(https:\/\/)?github.com\/[a-zA-Z0-9_-]+\z/)
+  end
+end
+
+
+class Student < Person
+  attr_reader :id, :phone_number, :telegram, :email, :git, :surname, :firstname, :lastname
+
+  def initialize(surname:, firstname:, lastname:, id:, phone_number: nil, telegram: nil, email: nil, git: nil)
+    super(id)
+    self.surname = surname
+    self.firstname = firstname
+    self.lastname = lastname
+    set_contacts(phone_number: phone_number, telegram: telegram, email: email)
+    self.git = git
   end
 
   def surname=(surname_value)
@@ -41,18 +60,6 @@ class Student
       raise "Incorrect lastname"
     end
     @lastname = lastname_value[0].upcase + lastname_value.slice(1, lastname_value.length - 1)
-  end
-
-  def self.telegram_regex?(telegram_value)
-    telegram_value.nil? || telegram_value.match?(/\A@[a-zA-Z0-9_]{5,32}\z/)
-  end
-
-  def self.email_regex?(email_value)
-    email_value.nil? || email_value.match?(/\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/)
-  end
-
-  def self.git_regex?(git_value)
-    git_value.nil? || git_value.match?(/\A(https:\/\/)?github.com\/[a-zA-Z0-9_-]+\z/)
   end
 
   def git=(git_value)
@@ -96,11 +103,11 @@ class Student
 
 end
 
-class Student_short
+class Student_short < Person
   attr_reader :id, :data, :student
 
   def initialize(id:, data: nil, student: nil)
-    @id = id
+    super(id)
     if (student)
       @fio = student.surname + student.firstname[0] + "." + student.lastname[0] + "."
       @git = student.git
