@@ -1,35 +1,7 @@
-class Person
-
-  def initialize(id)
-    @id = id
-  end
-
-  def self.phone_number_regex?(phone_number_value)
-    phone_number_value.nil? || phone_number_value.match?(/\A(\+?7|8)\d{10}\z/)
-  end
-
-  def self.surname_firstname_lastname_regex?(surname_firstname_lastname_value)
-    surname_firstname_lastname_value.match?(/^[А-ЯЁа-яё]+$/)
-  end
-
-  def self.telegram_regex?(telegram_value)
-    telegram_value.nil? || telegram_value.match?(/\A@[a-zA-Z0-9_]{5,32}\z/)
-  end
-
-  def self.email_regex?(email_value)
-    email_value.nil? || email_value.match?(/\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/)
-  end
-
-  def self.git_regex?(git_value)
-    git_value.nil? || git_value.match?(/\A(https:\/\/)?github.com\/[a-zA-Z0-9_-]+\z/)
-  end
-end
-
-
 class Student < Person
   attr_reader :id, :phone_number, :telegram, :email, :git, :surname, :firstname, :lastname
 
-  def initialize(surname:, firstname:, lastname:, id:, phone_number: nil, telegram: nil, email: nil, git: nil)
+  def initialize(surname:, firstname:, lastname:, id: nil, phone_number: nil, telegram: nil, email: nil, git: nil)
     super(id)
     self.surname = surname
     self.firstname = firstname
@@ -69,10 +41,6 @@ class Student < Person
     @git = git_value
   end
 
-  def validate?
-    return @git && (@email || @phone_number || @telegram)
-  end
-
   def set_contacts(phone_number: nil, telegram: nil, email: nil)
     @phone_number = phone_number if Student.phone_number_regex?(phone_number)
     @email = email if Student.email_regex?(email)
@@ -101,46 +69,4 @@ class Student < Person
     "\n#{get_name}, git: #{self.git}, #{get_contact}"
   end
 
-end
-
-class Student_short < Person
-  attr_reader :id, :data, :student
-
-  def initialize(id:, data: nil, student: nil)
-    super(id)
-    if (student)
-      @fio = student.surname + student.firstname[0] + "." + student.lastname[0] + "."
-      @git = student.git
-      @contact = student.phone_number || student.telegram || student.email 
-    else
-      from_string(data)
-    end
-  end
-
-  def from_string(data)
-    fio = ""
-    git = ""
-    contact = ""
-
-    data.split(",").map do |field|
-
-      pair = field.split(":")
-      
-      if pair.length != 2
-        raise "Invalid data format"
-      end
-      
-      case pair[0].strip
-      when "fio", "ФИО"
-        fio = pair[1].strip
-      when "git"
-        git = pair[1].strip
-      when "contact", "phone_number", "telegram", "email"
-        contact = pair[1].strip
-      else
-        raise "Invalid data format"
-      end
-    end
-  end
-  
 end
