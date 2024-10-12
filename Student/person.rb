@@ -1,7 +1,9 @@
 class Person
+  attr_reader :id, :git
 
-  def initialize(id: nil)
+  def initialize(id: nil, git: nil)
     @id = id
+    @git = git
   end
 
   def self.phone_number_regex?(phone_number_value)
@@ -36,5 +38,8 @@ class Person
     has_git?() && has_contact?()
   end
 
+  def contact()
+    raise "contact method is not implemented"
+  end
 end
 

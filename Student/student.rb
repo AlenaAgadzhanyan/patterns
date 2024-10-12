@@ -1,13 +1,14 @@
+require './person.rb'
+
 class Student < Person
-  attr_reader :id, :phone_number, :telegram, :email, :git, :surname, :firstname, :lastname
+  attr_reader :phone_number, :telegram, :email, :surname, :firstname, :lastname
 
   def initialize(surname:, firstname:, lastname:, id: nil, phone_number: nil, telegram: nil, email: nil, git: nil)
-    super(id)
+    super(id: id, git: git)
     self.surname = surname
     self.firstname = firstname
     self.lastname = lastname
     set_contacts(phone_number: phone_number, telegram: telegram, email: email)
-    self.git = git
   end
 
   def surname=(surname_value)
@@ -51,7 +52,7 @@ class Student < Person
     puts "\nID: #{@id} \nSurname: #{@surname} \nFirstname: #{@firstname} \nLastname: #{@lastname} #{"\nPhone_number: #{@phone_number}" if @phone_number} #{"\nTelegram: #{@telegram}" if @telegram} #{"\nEmail: #{@email}" if @email} #{"\nGit: #{@git}" if @git}"
   end
 
-  def get_contact()
+  def contact()
     if @phone_number then
       "phone_number: #{@phone_number}"
     elsif @telegram then
@@ -66,7 +67,7 @@ class Student < Person
   end
 
   def getInfo()
-    "\n#{get_name}, git: #{self.git}, #{get_contact}"
+    "\n#{get_name}, git: #{self.git}, #{contact}"
   end
 
 end
