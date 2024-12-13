@@ -1,5 +1,5 @@
 class ArrayProcessor
-  def initialize(array)
+	def initialize(array)
 		self.array = array.dup
 	end
 
@@ -10,7 +10,7 @@ class ArrayProcessor
 		false
 	end
 
-  def find_all
+	def find_all
 		result = []
 		self.array.each do |element|
 			result << element if yield(element)
@@ -18,7 +18,7 @@ class ArrayProcessor
 		result
 	end
 
-  def find_index
+	def find_index
 		self.array.each_with_index do |element, index|
 			return index if yield(element)
 		end
@@ -31,17 +31,6 @@ class ArrayProcessor
 		end
 		true
 	end
-
-  def min_max
-		return [nil, nil] if self.array.empty?
-
-		min_element = max_element = self.array[0]
-		self.array.each do |element|
-			min_element = element if yield(element, min_element) < 0
-			max_element = element if yield(element, max_element) > 0
-		end
-		[min_element, max_element]
-  end
 
 	def to_a
 		self.array.dup
