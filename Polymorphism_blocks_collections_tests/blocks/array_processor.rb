@@ -1,5 +1,5 @@
 class ArrayProcessor
-  def initialize(array)
+	def initialize(array)
 		self.array = array.dup
 	end
 
@@ -10,15 +10,15 @@ class ArrayProcessor
 		false
 	end
 
-  def find_all
+	def find_all
 		result = []
 		self.array.each do |element|
 			result << element if yield(element)
 		end
-		result
+	result
 	end
 
-  def find_index
+	def find_index
 		self.array.each_with_index do |element, index|
 			return index if yield(element)
 		end
