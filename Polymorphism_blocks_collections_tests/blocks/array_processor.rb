@@ -25,14 +25,14 @@ class ArrayProcessor
 		nil
 	end
   
-  def none?
+  	def none?
 		self.array.each do |element|
 			return false if yield(element)
 		end
 		true
 	end
   
-  def min_max
+	def min_max
 		return [nil, nil] if self.array.empty?
 
 		min_element = max_element = self.array[0]
@@ -41,7 +41,7 @@ class ArrayProcessor
 			max_element = element if yield(element, max_element) > 0
 		end
 		[min_element, max_element]
-  end
+  	end
 
   def reduce(initial = nil)
     accumulator = initial.nil? ? self.array[0] : initial
