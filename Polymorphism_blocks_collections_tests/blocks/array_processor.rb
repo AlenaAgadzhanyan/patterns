@@ -45,7 +45,7 @@ class ArrayProcessor
 
   def reduce(initial = nil)
     accumulator = initial.nil? ? self.array[0] : initial
-    start_index = initial.nil? 1 : 0
+    start_index = initial.nil? ? 1 : 0
     self.array[start_index..-1].each do |element|
       accumulator = yield(accumulator, element)
     end
