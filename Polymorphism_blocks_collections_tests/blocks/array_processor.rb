@@ -25,6 +25,13 @@ class ArrayProcessor
 		nil
 	end
 
+  def none?
+		self.array.each do |element|
+			return false if yield(element)
+		end
+		true
+	end
+
   def min_max
 		return [nil, nil] if self.array.empty?
 
