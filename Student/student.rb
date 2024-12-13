@@ -1,13 +1,15 @@
 require './person.rb'
 
 class Student < Person
-  attr_reader :phone_number, :telegram, :email, :surname, :firstname, :lastname
+  include Comparable
+  attr_reader :phone_number, :telegram, :email, :surname, :firstname, :lastname, :birth_date
 
-  def initialize(surname:, firstname:, lastname:, id: nil, phone_number: nil, telegram: nil, email: nil, git: nil)
+  def initialize(surname:, firstname:, lastname:, id: nil, phone_number: nil, telegram: nil, email: nil, git: nil, birth_date: nil)
     super(id: id, git: git)
     self.surname = surname
     self.firstname = firstname
     self.lastname = lastname
+    self.birth_date = birth_date
     set_contacts(phone_number: phone_number, telegram: telegram, email: email)
   end
 
@@ -49,7 +51,16 @@ class Student < Person
   end
 
   def to_s()
-    puts "\nID: #{@id} \nSurname: #{@surname} \nFirstname: #{@firstname} \nLastname: #{@lastname} #{"\nPhone_number: #{@phone_number}" if @phone_number} #{"\nTelegram: #{@telegram}" if @telegram} #{"\nEmail: #{@email}" if @email} #{"\nGit: #{@git}" if @git}"
+    puts "\nID: #{@id} \nSurname: #{@surname} \nFirstname: #{@firstname} \nLastname: #{@lastname} #{"\nPhone_number: #{@phone_number}" if @phone_number} #{"\nTelegram: #{@telegram}" if @telegram} #{"\nEmail: #{@email}" if @email} #{"\nGit: #{@git}" if @git} \nBirthday: #{@birth_date}"
+  end
+
+  def <=>(other)
+    birth_date <=> other.birth_date
+  end
+
+  def birth_date=(birth_date)
+    raise "Invalid birth date" unless birth_date.nil? || birth_date.match?(/\A\d{4}.\d{2}.\d{2}\z/)
+    @birth_date = birth_date
   end
 
   def contact()
