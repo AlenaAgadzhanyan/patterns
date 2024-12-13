@@ -43,6 +43,7 @@ class ArrayProcessor
 		[min_element, max_element]
   	end
 
+<<<<<<< HEAD
   def reduce(initial = nil)
     accumulator = initial.nil? ? self.array[0] : initial
     start_index = initial.nil? ? 1 : 0
@@ -52,6 +53,17 @@ class ArrayProcessor
     accumulator
   end
 
+=======
+  	def reduce(initial = nil)
+	    accumulator = initial.nil? ? self.array[0] : initial
+	    start_index = initial.nil? 1 : 0
+	    self.array[start_index..-1].each do |element|
+	      accumulator = yield(accumulator, element)
+	    end
+	    accumulator
+	end
+	  
+>>>>>>> c324a2ee29d8183a51e96f13dbf8e46f88fcd8cb
 	def to_a
 		self.array.dup
 	end
