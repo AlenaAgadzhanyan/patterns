@@ -15,7 +15,7 @@ class ArrayProcessor
 		self.array.each do |element|
 			result << element if yield(element)
 		end
-	result
+		result
 	end
 
 	def find_index
