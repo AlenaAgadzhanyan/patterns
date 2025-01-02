@@ -1,11 +1,12 @@
 class DataList
   def initialize(data)
-    @data = data.sort.freeze
+    @data = data.freeze
     @selected = []
   end
 
-  def sekect(number)
-    @selected << number unless @selected.include?(number)
+  def select(number)
+    item = data[number]
+    @selected << item unless @selected.include?(item)
   end
 
   def get_selected()
@@ -16,11 +17,18 @@ class DataList
     raise ArgumentError, "The method is not implemented"
   end
 
-  def get_data()
+  def row_data()
     raise ArgumentError, "The method is not implemented"
   end
 
-  private
+  def get_data()
+    data_for_table = @data.map.with_index do |student, index|
+      self.row_data(index)
+    end
+    DataTable.new(data_for_table)
+  end
+
+  protected
 
   attr_reader :data
   attr_accessor :selected
