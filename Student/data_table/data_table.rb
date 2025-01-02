@@ -1,4 +1,7 @@
+require '../deep_copy/deep_copy.rb'
+
 class DataTable
+  include Deep_dup
   
   def row_count()
     @data.size
@@ -32,18 +35,6 @@ class DataTable
 
   def valid_indices?(row, column)
     row.between?(0, row_count - 1) && column.between?(0, column_count - 1)
-  end
-
-  def deep_copy(obj)
-    if obj.is_a?(Array)
-      obj.map { |item| deep_copy(item) }
-    elsif obj.is_a?(Hash)
-      obj.transform_values { |value| deep_dup(value) }
-    elsif obj.respond_to?(:dup)
-      obj.dup
-    else
-      obj
-    end
   end
 
 end
