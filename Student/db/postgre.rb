@@ -1,5 +1,4 @@
 require 'pg'
-
 class PG_client
   def initialize
     self.client = PG.connect(
@@ -13,6 +12,10 @@ class PG_client
 
   def exec(query)
     client.exec(query)
+  end
+
+  def exec_params(query)
+    client.exec_params(query)
   end
   
   private

@@ -63,6 +63,10 @@ class Student < Person
     @birth_date = birth_date
   end
 
+  def self.from_hash(hash)
+    new(hash.transform_keys { |key| key.to_sym })
+  end
+
   def contact()
     if @phone_number then
       "phone_number: #{@phone_number}"
