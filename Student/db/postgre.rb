@@ -1,15 +1,6 @@
 require 'pg'
-class PG_client
-  def initialize
-    self.client = PG.connect(
-      dbname: 'Students',
-      user: 'postgres',
-      password: '123',
-      host: 'localhost',
-      port: 5432
-    )
-  end
-
+class PGClient
+  
   def exec(query)
     client.exec(query)
   end
@@ -17,7 +8,27 @@ class PG_client
   def exec_params(query)
     client.exec_params(query)
   end
+
+  def close
+    client.close
+  end
   
+  def self.instance
+      @instance ||= new
+  end
+
   private
   attr_accessor :client
+
+  @instance = nil
+
+  def initialize
+    self.client = PG.connect(
+      dbname: 'Studentы',
+      user: 'postgres',
+      password: '123',
+      host: 'localhost',
+      port: 5432
+    )
+  end
 end
