@@ -3,6 +3,7 @@ require_relative './person.rb'
 class Student < Person
   include Comparable
   attr_reader :phone_number, :telegram, :email, :surname, :firstname, :lastname, :birth_date
+  attr_accessor :id
 
   def initialize(surname:, firstname:, lastname:, id: nil, phone_number: nil, telegram: nil, email: nil, git: nil, birth_date: nil)
     super(id: id, git: git)
@@ -59,12 +60,23 @@ class Student < Person
   end
 
   def birth_date=(birth_date)
-    raise "Invalid birth date" unless birth_date.nil? || birth_date.match?(/\A\d{4}.\d{2}.\d{2}\z/)
     @birth_date = birth_date
   end
 
   def self.from_hash(hash)
     new(hash.transform_keys { |key| key.to_sym })
+  end
+
+  def ==(other)
+    if other.is_a? Student
+      return (@id && other.id == @id) ||
+      (@git && other.git == @git) ||
+      (@email && other.email == @email) ||
+      (@phone_number && other.phone_number == @phone_number) ||
+      (@telegram && other.telegram == @telegram)
+    else
+      false
+    end
   end
 
   def contact()

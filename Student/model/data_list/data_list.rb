@@ -1,5 +1,5 @@
-#require_relative '../deep_copy/deep_copy.rb'
-require 'C:/Users/Honor/Desktop/patterns/Student/deep_copy/deep_copy.rb'
+require_relative '../deep_copy/deep_copy.rb'
+
 class DataList
   include Deep_dup
 

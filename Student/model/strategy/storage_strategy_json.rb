@@ -1,5 +1,5 @@
 require 'json'
-require './strategy.rb'
+require_relative './strategy.rb"'
 require_relative '../entities/student.rb'
 
 class StorageStrategyJSON < Strategy

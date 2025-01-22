@@ -14,7 +14,7 @@ class PGClient
   end
   
   def self.instance
-      @instance ||= new
+    @instance ||= new
   end
 
   private
@@ -24,7 +24,7 @@ class PGClient
 
   def initialize
     self.client = PG.connect(
-      dbname: 'Studentы',
+      dbname: 'Students',
       user: 'postgres',
       password: '123',
       host: 'localhost',

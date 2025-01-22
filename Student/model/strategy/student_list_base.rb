@@ -1,5 +1,6 @@
 require_relative '../entities/student_short.rb'
 require_relative '../data_list/data_list_student_short.rb'
+require_relative '../tree/student_tree.rb'
 
 class StudentsListBase
   def initialize(file_path, strategy)
@@ -15,7 +16,7 @@ class StudentsListBase
   def get_k_n_student_short_list(k, n, existing_data_list = nil)
     start_index = (k - 1) * n
     slice = @students[start_index, n] || []
-    student_shorts = slice.map { |student| StudentShort.from_student_object(student) }
+    student_shorts = slice.map { |student| Student_short.from_student(student) }
     if existing_data_list
       existing_data_list.replace(student_shorts)
       existing_data_list
@@ -32,7 +33,7 @@ class StudentsListBase
     student_ids = @students.map { |student| student.id }
     max_id = student_ids.max || 0
     student.id = max_id + 1
-    @students << student
+    student_is_new?(student) ? @students.push(student) : raise(ArgumentError, "Student already exists")
   end
 
   def replace_student(id, new_student)
@@ -61,4 +62,8 @@ class StudentsListBase
 
   private
   attr_accessor :file_path, :students, :strategy
+
+  def student_is_new?(student)
+    return @students.none? { |s| student == s }
+  end
 end
