@@ -9,7 +9,7 @@ class StudentListView < FXMainWindow
       super(app, "Student List", width: 1000, height: 524)
       @filters = {}
       @current_page = 1
-      @items_per_page = 20
+      @items_per_page = 10
       @total_pages = 0
       @controller = StudentsListController.new(self)
 

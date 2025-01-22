@@ -44,9 +44,14 @@ require './model/db/student_list_db.rb'
 # students.each { |student| json.add_student(student) }
 # puts(json.write_to_file)
 
-student_list = StudentsListBase.new("C:/Users/Honor/Desktop/patterns/Student/strategy/students.json", StorageStrategyJSON.new())
-p student_list.get_student_by_id(1)
-student_list.add_student(student_list.get_student_by_id(1))
+# student_list = StudentsListBase.new("C:/Users/Honor/Desktop/patterns/Student/strategy/students.json", StorageStrategyJSON.new())
+# p student_list.get_student_by_id(1)
+# student_list.add_student(student_list.get_student_by_id(1))
 
-client = PG_client.new
-client.exec("select * from students;").each { |row| puts row }
+# client = PG_client.new
+# client.exec("select * from students;").each { |row| puts row }
+
+client1 = PGClient.instance
+client2 = PGClient.instance
+client3 = PGClient.new
+puts client1.object_id == client3.object_id 

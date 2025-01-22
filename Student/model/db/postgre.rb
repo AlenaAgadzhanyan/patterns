@@ -19,6 +19,7 @@ class PGClient
 
   private
   attr_accessor :client
+  private_class_method :new
 
   @instance = nil
 

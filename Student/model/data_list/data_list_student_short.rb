@@ -6,7 +6,7 @@ class DataListStudentShort < DataList
     ["Fio", "Git", "Contacts"]
   end
 
-  def data_row(item, index)
-    [index + 1, item.fio, item.git, item.contact,]
+  def data_row(item)
+    [item.id, item.fio, item.git, item.contact]
   end
 end

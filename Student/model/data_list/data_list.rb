@@ -9,6 +9,7 @@ class DataList
     @selected = []
     @observers = []
     @count = 0
+    @indeces = 0
   end
 
   def select(number)
@@ -30,8 +31,9 @@ class DataList
 
   def get_data
     data_for_table = [get_names]
-    data.each_with_index do |item, index|
-      data_for_table << data_row(item, index)
+    data.each_with_index do |item|
+
+      data_for_table << data_row(item)
     end
     DataTable.new(data_for_table)
   end
